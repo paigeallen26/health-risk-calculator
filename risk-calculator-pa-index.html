@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>Health Insurance Risk Calculator</title> 
+     <link rel="stylesheet" href="MatchMaker.css">
+<!-- 
+    Author: Paige Allen
+    Project: Health Insurance Risk Calculator
+
+    All rights reserved.
+-->
+
+
+
+    <!-- Reference for HTML "option" tabs/fields: https://w3schools.com/tags/tag_option.asp -->
+   
+</head>
+<body>
+    <h1>Find out if your health is at risk! Created by Paige Allen</h1>
+    <p> Answer each question honestly about your health, at the end press Calculate Health Risk to find out if your health is at risk or not!</p>
+
+    <label> What age category do you fall in?</label><br />
+    <select id="q1">
+        <option value="0">5-30 years</option>
+        <option value="10">30-45 years</option>
+        <option value="20">45-60 years</option>
+        <option value="30">60 years or older</option>
+    </select>
+    <br /><br />
+
+    <label> Do you have any history of these family diseases?</label><br />
+    <select id="q2">
+        <option value="10">Diabetes</option>
+        <option value="10">Cancer</option>
+        <option value="10">Alzheimer's</option>
+        <option value="0">None</option>
+    </select>
+    <br /><br />
+
+    <label> What is your BMI(Body Mass Index)?</label><br />
+    <select id="q3">
+        <option value="0">Normal: 18.5-24.0</option>
+        <option value="30">Overweight: 25-39.9</option>
+        <option value="75">Else: 30+ </option>
+    </select>
+    <br /><br />
+
+    <label> What are your Systolic blood pressure levels?</label><br />
+    <select id="q4">
+        <option value="0">Normal: 120 or Less</option>
+        <option value="15">Elevated: 121-129</option>
+        <option value="30">Stage 1: 130-139</option>
+        <option value="75">Stage 2: 140+</option>
+        <option value="100">Crisis: 180+</option>
+    </select>
+    <br /><br /><br /><br />
+
+    <button onclick="calculateHealthRisk()">Calculate Health Risk</button>
+    <p id="healthrisk"></p>
+
+    <script>
+    console.log("Calculating Health Risk..");
+        
+        
+    function calculateHealthRisk() {
+
+        const STRONGEST_ANSWERS = [
+            0, // question 1 5-30 years
+            0, // question 2 None
+            0, // question 3 Normal: 18.5-24
+            0 // question 4 Normal: 120 or Less
+            ] 
+
+        console.log("calculateHealthRisk()")
+        let question1Response = document.getElementById('q1').selectedOptions[0].value;
+        console.log("R1 = " + question1Response);
+        let question2Response = document.getElementById('q2').selectedOptions[0].value;
+        console.log("R2 = " + question2Response);
+        let question3Response = document.getElementById('q3').selectedOptions[0].value;
+        console.log("R3 = " + question3Response);
+        let question4Response = document.getElementById('q4').selectedOptions[0].value;
+        console.log("R4 = " + question4Response);
+        
+        let risk1 = Math.abs(question1Response-STRONGEST_ANSWERS[0]);
+        console.log("R1 = " + risk1);
+        let risk2 = Math.abs(question2Response-STRONGEST_ANSWERS[1]);
+        console.log("R2 = " + risk2);
+        let risk3 = Math.abs(question3Response-STRONGEST_ANSWERS[2]);
+        console.log("R3 = " + risk3);
+        let risk4 = Math.abs(question4Response-STRONGEST_ANSWERS[3]);
+        console.log("R4 = " + risk4);
+        
+        
+        let totalHealthRisk = risk1 + risk2 + risk3 +risk4;
+        
+        let userOutput = "<h1>Your Health Risk is: " + totalHealthRisk + "%</h1>"; 
+        let categories = "<h2> 20 or less, you are Low Risk! Keep up the great work </h2>";
+        let categories1 = "<h2> 50 or less, your health is at Moderate Risk. Work on a few things and you'll be okay! </h2>";
+        let categories2 = "<p style=font-size:2vw> 75 or less, your health is at high risk! :( </p>";
+        let categories3 = "<p style=font-size:2vw> Higher than a 75.. I hope you're getting the help you need! </p>"; 
+    
+        if (totalHealthRisk <= 20) {
+        userOutput += categories;
+    }   else if (totalHealthRisk <= 50) {
+        userOutput += categories1;
+    }   else if (totalHealthRisk <= 75) {
+        userOutput += categories2
+    }   else if (totalHealthRisk > 75) {
+        userOutput += categories3
+    }
+
+       
+        
+
+        document.getElementById("healthrisk").innerHTML = userOutput;
+
+       
+    }
+
+    
+        
+        </script>
+        
+        
+        
+        </body>
+        </html>
